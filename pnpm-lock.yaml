@@ -156,20 +156,19 @@ importers:
         version: 5.5.4
 
   scripts/webflow-scripts:
-    dependencies:
-      D:
-        specifier: ^1.0.0
-        version: 1.0.0
-      typescript:
-        specifier: ^5.7.3
-        version: 5.7.3
     devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:^
+        version: link:../../packages/eslint-config
       '@repo/typescript-config':
         specifier: workspace:^
         version: link:../../packages/typescript-config
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
 
 packages:
 
@@ -696,10 +695,6 @@ packages:
   '@typescript-eslint/visitor-keys@8.15.0':
     resolution: {integrity: sha512-h8vYOulWec9LhpwfAdZf2bjr8xIp0KNKnpgqSz0qqYYKAW/QZKw3ktRndbiAtUz4acH4QLQavwZBYCc0wulA/Q==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  D@1.0.0:
-    resolution: {integrity: sha512-nQvrCBu7K2pSSEtIM0EEF03FVjcczCXInMt3moLNFbjlWx6bZrX72uT6/1uAXDbnzGUAx9gTyDiQ+vrFi663oA==}
-    deprecated: Package no longer supported. Contact support@npmjs.com for more info.
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2692,8 +2687,6 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.15.0
       eslint-visitor-keys: 4.2.0
-
-  D@1.0.0: {}
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:

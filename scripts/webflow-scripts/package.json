@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Various scripts to be used to extend functionality of websites built with Webflow",
   "scripts": {
+    "lint": "eslint ./src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [
@@ -11,11 +12,9 @@
   "author": "Devflow Studio, LLC",
   "license": "MIT",
   "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
-    "tsx": "^4.19.2"
-  },
-  "dependencies": {
-    "D": "^1.0.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
 }
