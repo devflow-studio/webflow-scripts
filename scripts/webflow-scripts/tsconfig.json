@@ -1,5 +1,9 @@
 {
   "extends": "@repo/typescript-config/scripts.json",
+  "compilerOptions": {
+    "types": ["jest", "node"],
+    "allowImportingTsExtensions": true,
+  },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

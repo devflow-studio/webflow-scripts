@@ -4,7 +4,7 @@
   "description": "Various scripts to be used to extend functionality of websites built with Webflow",
   "scripts": {
     "lint": "eslint ./src/**/*.ts",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "jest"
   },
   "keywords": [
     "webflow"
@@ -13,7 +13,12 @@
   "license": "MIT",
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
+    "@repo/jest-presets": "workspace:^",
     "@repo/typescript-config": "workspace:^",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
