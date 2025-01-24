@@ -9,3 +9,13 @@ reusable Webflow scripts.
 
 `./scripts/webflow-scripts` See:
 [Webflow Scripts](./scripts/webflow-scripts/README.md)
+
+### Publishing to NPM
+
+Who: Devflow Studio Admin
+
+How:
+
+- `cd ./scripts/webflow-scripts`
+- `npm version patch` | `npm version minor` | `npm version major`
+- `npm publish`
