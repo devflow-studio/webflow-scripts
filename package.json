@@ -9,7 +9,7 @@
     "format:check": "prettier --check \"**/*.{css,html,ts,tsx,md}\"",
     "prepare": "husky install",
     "test": "turbo test",
-    "types:check": "tsc --noEmit"
+    "types:check": "turbo types:check"
   },
   "devDependencies": {
     "husky": "^9.1.7",
