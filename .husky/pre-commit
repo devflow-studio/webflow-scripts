@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running pre-commit hook..."
+
+# 1. Run format:check
+if ! pnpm format:check | grep -q "All matched files use Prettier code style!"; then
+  echo "❌ Prettier check failed. Please format your files."
+  exit 1
+fi
+
+# 2. Run format
+pnpm format
+
+# 2. Run types:check
+if ! pnpm types:check; then
+  echo "❌ Type check failed."
+  exit 1
+fi
+
+# 3. Run lint
+if ! pnpm lint; then
+  echo "❌ Lint errors found."
+  exit 1
+fi
+
+# 5. Run build
+if ! pnpm build; then
+  echo "❌ Build failed."
+  exit 1
+fi
+
+# 6. Run test
+if ! pnpm test; then
+  echo "❌ Tests failed."
+  exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with commit."
