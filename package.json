@@ -1,5 +1,5 @@
 {
-  "name": "webflow-scripts",
+  "name": "@devflow-studio/webflow-scripts",
   "private": true,
   "scripts": {
     "build": "turbo build",
