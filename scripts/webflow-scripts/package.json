@@ -2,6 +2,9 @@
   "name": "webflow-scripts",
   "version": "1.0.0",
   "description": "Various scripts to be used to extend functionality of websites built with Webflow",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint ./src/**/*.ts",
