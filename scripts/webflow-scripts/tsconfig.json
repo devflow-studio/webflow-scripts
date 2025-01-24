@@ -1,8 +1,16 @@
 {
   "extends": "@repo/typescript-config/scripts.json",
   "compilerOptions": {
+    "outDir": "dist",
     "types": ["jest", "node"],
-    "allowImportingTsExtensions": true,
+    "moduleResolution": "Bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": false,
+    "declarationMap": false,
+    "target": "ESNext",
+    "module": "ESNext",
+    "composite": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
