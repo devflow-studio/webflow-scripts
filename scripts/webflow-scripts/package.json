@@ -1,0 +1,21 @@
+{
+  "name": "webflow-scripts",
+  "version": "1.0.0",
+  "description": "Various scripts to be used to extend functionality of websites built with Webflow",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [
+    "webflow"
+  ],
+  "author": "Devflow Studio, LLC",
+  "license": "MIT",
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:^",
+    "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "D": "^1.0.0",
+    "typescript": "^5.7.3"
+  }
+}
