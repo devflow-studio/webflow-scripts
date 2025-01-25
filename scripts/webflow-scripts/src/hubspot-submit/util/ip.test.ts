@@ -11,7 +11,6 @@ describe('IP', () => {
     })
 
     it('makes a fetch to ipify API', async () => {
-      // mock fetch
       ;(global.fetch as jest.Mock).mockResolvedValueOnce({
         ok: true,
         status: 200,
@@ -25,6 +24,23 @@ describe('IP', () => {
       )
 
       expect(response).toBe('127.0.0.1')
+    })
+
+    it('returns undefined if fetch fails & logs to console', async () => {
+      ;(global.fetch as jest.Mock).mockRejectedValueOnce(
+        new Error('test error'),
+      )
+
+      const consoleSpy = jest.spyOn(console, 'log').mockImplementation()
+
+      const response = await getClientIp()
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://api.ipify.org?format=json',
+      )
+
+      expect(consoleSpy).toHaveBeenCalledWith('unable to get client ip')
+      expect(response).toBeUndefined()
     })
   })
 })

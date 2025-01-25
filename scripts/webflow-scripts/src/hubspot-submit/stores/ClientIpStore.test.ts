@@ -18,4 +18,12 @@ describe('ClientIpStore', () => {
     expect(ip).toBeDefined()
     expect(ip).toBe('127.0.0.1')
   })
+
+  it('returns undefined if useClientIp is false', async () => {
+    const useClientIp = false
+    ;(getClientIp as jest.Mock).mockResolvedValue('127.0.0.1')
+    await ClientIpStore.memorizeClientIp(useClientIp)
+    const ip = ClientIpStore.getIp()
+    expect(ip).toBeUndefined()
+  })
 })
