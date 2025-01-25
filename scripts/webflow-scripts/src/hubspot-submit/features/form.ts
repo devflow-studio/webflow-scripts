@@ -1,3 +1,5 @@
+import { getHubspotFields, HubspotField } from './fields'
+
 export const prepareWebflowForm = (form: HTMLFormElement): void => {
   form.parentElement?.classList.remove('w-form') // Webflow form class
 }
@@ -107,5 +109,8 @@ export const addFormSubmitListener = (
     console.log(
       `Form Submit!\nForm ID: ${formConfig.formId}\nPortal ID: ${formConfig.portalId}\nIP: ${ip}`,
     )
+
+    const fields: HubspotField[] = getHubspotFields(form)
+    console.log('Fields:', fields)
   })
 }
