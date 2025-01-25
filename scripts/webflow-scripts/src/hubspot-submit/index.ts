@@ -1,5 +1,6 @@
 import { getHubspotForms, greet, useClientIp } from './config/init'
 import { getClientIp } from './features/ip'
+import { FormConfig, getFormConfig, prepareWebflowForm } from './features/form'
 
 /**
  * Hubspot Form Controller
@@ -13,7 +14,7 @@ import { getClientIp } from './features/ip'
  * - data-redirect-url: (optional) - URL to redirect to after form submission
  * - data-resource-url: (optional) - URL to resource [PDF] to open in new tab after success
  * - data-redirect-timeout: (optional) - time in milliseconds to wait before redirecting
- * The form success block needs the following HTML attribute:
+ * The form success/error blocks needs the following HTML attributes:
  * - data-form-success: this is the block that will be displayed after form submission
  * - data-form-error: this is the block that will be displayed after form submission (if there is an error)
  */
@@ -30,4 +31,11 @@ import { getClientIp } from './features/ip'
   const clientIp: string | undefined = useClientIp
     ? await getClientIp()
     : undefined
+
+  hubspotForms.forEach(form => {
+    prepareWebflowForm(form)
+
+    const formConfig: FormConfig = getFormConfig(form)
+    // attach event listeners - handle submit
+  })
 })()
