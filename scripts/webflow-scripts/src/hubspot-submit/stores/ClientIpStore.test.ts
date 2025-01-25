@@ -6,12 +6,12 @@ jest.mock('../util/ip', () => ({
 }))
 
 describe('ClientIpStore', () => {
-  it('should return undefined if no ip is set', () => {
+  it('returns undefined if no ip is set', () => {
     ;(getClientIp as jest.Mock).mockResolvedValue(undefined)
     expect(ClientIpStore.getIp()).toBeUndefined()
   })
 
-  it('should return the ip if it is set', async () => {
+  it('returns the ip if it is set', async () => {
     ;(getClientIp as jest.Mock).mockResolvedValue('127.0.0.1')
     await ClientIpStore.memorizeClientIp(true)
     const ip = ClientIpStore.getIp()
