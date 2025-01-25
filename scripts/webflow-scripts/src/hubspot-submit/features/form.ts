@@ -1,9 +1,4 @@
-import {
-  appendGclid,
-  appendUtmParameters,
-  getHubspotFields,
-  HubspotField,
-} from './fields'
+import { constructHubspotPayload } from './payload'
 
 export const prepareWebflowForm = (form: HTMLFormElement): void => {
   form.parentElement?.classList.remove('w-form') // Webflow form class
@@ -106,18 +101,15 @@ export const getFormConfig = (form: HTMLFormElement): FormConfig => {
 export const addFormSubmitListener = (
   form: HTMLFormElement,
   formConfig: FormConfig,
-  ip?: string,
 ): void => {
   form.addEventListener('submit', async (event: Event) => {
     event.preventDefault()
 
     console.log(
-      `Form Submit!\nForm ID: ${formConfig.formId}\nPortal ID: ${formConfig.portalId}\nIP: ${ip}`,
+      `Form Submit!\nForm ID: ${formConfig.formId}\nPortal ID: ${formConfig.portalId}`,
     )
 
-    let fields: HubspotField[] = getHubspotFields(form)
-    fields = appendUtmParameters(fields)
-    fields = appendGclid(fields)
-    console.log('Fields:', fields)
+    const payload = constructHubspotPayload(form)
+    console.log('Payload:', payload)
   })
 }

@@ -18,7 +18,7 @@ const getHubspotFieldElements = (
   return fieldElements.filter(fe => fe.type !== 'submit')
 }
 
-export const getHubspotFields = (form: HTMLFormElement): HubspotField[] => {
+const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
   const fieldElements = getHubspotFieldElements(form)
 
   return fieldElements.map(fieldElement => {
@@ -42,7 +42,7 @@ export const getHubspotFields = (form: HTMLFormElement): HubspotField[] => {
   })
 }
 
-export const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
+const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
   const utmParameters = UTMStore.getUtmParameters()
 
   if (!utmParameters) {
@@ -56,7 +56,7 @@ export const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
   return [...fields, ...utmFields]
 }
 
-export const appendGclid = (fields: HubspotField[]): HubspotField[] => {
+const appendGclid = (fields: HubspotField[]): HubspotField[] => {
   const gclid = GclidStore.getGclid()
 
   if (!gclid) {
@@ -64,4 +64,12 @@ export const appendGclid = (fields: HubspotField[]): HubspotField[] => {
   }
 
   return [...fields, { name: 'gclid', value: gclid }]
+}
+
+export const getHubspotFields = (form: HTMLFormElement): HubspotField[] => {
+  let fields: HubspotField[] = getFieldsFromInputs(form)
+  fields = appendUtmParameters(fields)
+  fields = appendGclid(fields)
+
+  return fields
 }
