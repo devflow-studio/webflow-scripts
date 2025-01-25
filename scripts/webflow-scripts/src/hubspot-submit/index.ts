@@ -1,6 +1,11 @@
 import { getHubspotForms, greet, useClientIp } from './config/init'
 import { getClientIp } from './features/ip'
-import { FormConfig, getFormConfig, prepareWebflowForm } from './features/form'
+import {
+  addFormSubmitListener,
+  FormConfig,
+  getFormConfig,
+  prepareWebflowForm,
+} from './features/form'
 
 /**
  * Hubspot Form Controller
@@ -36,6 +41,7 @@ import { FormConfig, getFormConfig, prepareWebflowForm } from './features/form'
     prepareWebflowForm(form)
 
     const formConfig: FormConfig = getFormConfig(form)
-    // attach event listeners - handle submit
+
+    addFormSubmitListener(form, formConfig, clientIp)
   })
 })()

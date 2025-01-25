@@ -95,3 +95,17 @@ export const getFormConfig = (form: HTMLFormElement): FormConfig => {
     formErrorBlock,
   }
 }
+
+export const addFormSubmitListener = (
+  form: HTMLFormElement,
+  formConfig: FormConfig,
+  ip?: string,
+): void => {
+  form.addEventListener('submit', async (event: Event) => {
+    event.preventDefault()
+
+    console.log(
+      `Form Submit!\nForm ID: ${formConfig.formId}\nPortal ID: ${formConfig.portalId}\nIP: ${ip}`,
+    )
+  })
+}
