@@ -1,4 +1,9 @@
-import { appendUtmParameters, getHubspotFields, HubspotField } from './fields'
+import {
+  appendGclid,
+  appendUtmParameters,
+  getHubspotFields,
+  HubspotField,
+} from './fields'
 
 export const prepareWebflowForm = (form: HTMLFormElement): void => {
   form.parentElement?.classList.remove('w-form') // Webflow form class
@@ -112,6 +117,7 @@ export const addFormSubmitListener = (
 
     let fields: HubspotField[] = getHubspotFields(form)
     fields = appendUtmParameters(fields)
+    fields = appendGclid(fields)
     console.log('Fields:', fields)
   })
 }

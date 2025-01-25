@@ -1,4 +1,5 @@
 import { UTMStore } from '../stores/UTMStore'
+import { GclidStore } from '../stores/GclidStore'
 
 export interface HubspotField {
   name: string
@@ -53,4 +54,14 @@ export const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
   )
 
   return [...fields, ...utmFields]
+}
+
+export const appendGclid = (fields: HubspotField[]): HubspotField[] => {
+  const gclid = GclidStore.getGclid()
+
+  if (!gclid) {
+    return fields
+  }
+
+  return [...fields, { name: 'gclid', value: gclid }]
 }

@@ -1,5 +1,6 @@
 import { getHubspotForms, greet, useClientIp } from './config/init'
 import { UTMStore } from './stores/UTMStore'
+import { GclidStore } from './stores/GclidStore'
 import { getClientIp } from './features/ip'
 import {
   addFormSubmitListener,
@@ -35,6 +36,7 @@ import {
   }
 
   UTMStore.memorizeUtmParameters()
+  GclidStore.memorizeGclid()
 
   const clientIp: string | undefined = useClientIp
     ? await getClientIp()
