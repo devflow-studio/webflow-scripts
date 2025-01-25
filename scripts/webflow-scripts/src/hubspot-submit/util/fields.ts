@@ -48,7 +48,7 @@ const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
 const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
   const utmParameters = UTMStore.getUtmParameters()
 
-  if (!utmParameters || !useUtmParameters) {
+  if (!utmParameters || !useUtmParameters()) {
     return fields
   }
 
@@ -62,7 +62,7 @@ const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
 const appendGclid = (fields: HubspotField[]): HubspotField[] => {
   const gclid = GclidStore.getGclid()
 
-  if (!gclid || !useGclid) {
+  if (!gclid || !useGclid()) {
     return fields
   }
 
