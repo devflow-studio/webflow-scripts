@@ -1,4 +1,5 @@
 import { getHubspotForms, greet, useClientIp } from './config/init'
+import { UTMStore } from './stores/UTMStore'
 import { getClientIp } from './features/ip'
 import {
   addFormSubmitListener,
@@ -32,6 +33,8 @@ import {
     // no hubspot forms on page
     return
   }
+
+  UTMStore.memorizeUtmParameters()
 
   const clientIp: string | undefined = useClientIp
     ? await getClientIp()

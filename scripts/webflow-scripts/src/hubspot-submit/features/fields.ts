@@ -1,3 +1,5 @@
+import { UTMStore } from '../stores/UTMStore'
+
 export interface HubspotField {
   name: string
   value: string
@@ -37,4 +39,18 @@ export const getHubspotFields = (form: HTMLFormElement): HubspotField[] => {
 
     return { name, value }
   })
+}
+
+export const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
+  const utmParameters = UTMStore.getUtmParameters()
+
+  if (!utmParameters) {
+    return fields
+  }
+
+  const utmFields: HubspotField[] = Object.entries(utmParameters).map(
+    ([key, value]) => ({ name: key, value }),
+  )
+
+  return [...fields, ...utmFields]
 }
