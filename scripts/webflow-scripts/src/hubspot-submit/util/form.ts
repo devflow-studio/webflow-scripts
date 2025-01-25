@@ -1,4 +1,6 @@
-import { constructHubspotPayload } from './payload'
+import { constructHubspotPayload, HubspotPayload } from './payload'
+import { submitHubspotPayload } from '../api/hubspot'
+import { downloadFile } from './download'
 
 export const prepareWebflowForm = (form: HTMLFormElement): void => {
   form.parentElement?.classList.remove('w-form') // Webflow form class
@@ -9,6 +11,7 @@ export interface FormConfig {
   portalId: string
   redirectUrl?: string
   resourceUrl?: string
+  resourceFilename?: string
   redirectTimeout?: number
   formSuccessBlock?: HTMLElement
   formErrorBlock?: HTMLElement
@@ -48,6 +51,10 @@ const getResourceUrl = (form: HTMLFormElement): string | undefined => {
   return form.getAttribute('data-resource-url') || undefined
 }
 
+const getResourceFilename = (form: HTMLFormElement): string | undefined => {
+  return form.getAttribute('data-resource-filename') || undefined
+}
+
 const getRedirectTimeout = (form: HTMLFormElement): number | undefined => {
   return form.getAttribute('data-redirect-timeout')
     ? parseInt(form.getAttribute('data-redirect-timeout') || '0', 10)
@@ -83,6 +90,7 @@ export const getFormConfig = (form: HTMLFormElement): FormConfig => {
   const portalId = getPortalId(form)
   const redirectUrl = getRedirectUrl(form)
   const resourceUrl = getResourceUrl(form)
+  const resourceFilename = getResourceFilename(form)
   const redirectTimeout = getRedirectTimeout(form)
   const formSuccessBlock = getFormSuccessBlock(form)
   const formErrorBlock = getFormErrorBlock(form)
@@ -92,9 +100,23 @@ export const getFormConfig = (form: HTMLFormElement): FormConfig => {
     portalId,
     redirectUrl,
     resourceUrl,
+    resourceFilename,
     redirectTimeout,
     formSuccessBlock,
     formErrorBlock,
+  }
+}
+
+const sendFormData = async (
+  payload: HubspotPayload,
+  formConfig: FormConfig,
+): Promise<boolean> => {
+  try {
+    const response = await submitHubspotPayload(payload, formConfig)
+    return response.ok
+  } catch (error) {
+    console.error('Error submitting form to Hubspot:', error)
+    return false
   }
 }
 
@@ -109,7 +131,34 @@ export const addFormSubmitListener = (
       `Form Submit!\nForm ID: ${formConfig.formId}\nPortal ID: ${formConfig.portalId}`,
     )
 
-    const payload = constructHubspotPayload(form)
-    console.log('Payload:', payload)
+    const success: boolean = await sendFormData(
+      constructHubspotPayload(form),
+      formConfig,
+    )
+
+    form.style.display = 'none'
+
+    if (formConfig.formSuccessBlock && success) {
+      formConfig.formSuccessBlock.style.display = 'block'
+    }
+
+    if (formConfig.formErrorBlock && !success) {
+      formConfig.formErrorBlock.style.display = 'block'
+    }
+
+    if (formConfig.redirectUrl && success) {
+      setTimeout(() => {
+        window.location.assign(String(formConfig.redirectUrl))
+      }, formConfig.redirectTimeout || 0)
+    }
+
+    if (formConfig.resourceUrl && formConfig.resourceFilename && success) {
+      downloadFile(formConfig.resourceUrl, formConfig.resourceFilename)
+    } else if (formConfig.resourceUrl && success) {
+      console.warn(
+        'resource filename not specified - opening resource in new tab',
+      )
+      window.open(formConfig.resourceUrl, '_blank')
+    }
   })
 }

@@ -1,4 +1,4 @@
-import { getClientIp } from '../features/ip'
+import { getClientIp } from '../util/ip'
 
 export const ClientIpStore = (() => {
   let ip: string | undefined

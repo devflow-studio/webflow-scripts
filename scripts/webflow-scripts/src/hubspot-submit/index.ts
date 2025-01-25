@@ -7,7 +7,7 @@ import {
   FormConfig,
   getFormConfig,
   prepareWebflowForm,
-} from './features/form'
+} from './util/form'
 
 /**
  * Hubspot Form Controller
@@ -20,6 +20,7 @@ import {
  * - data-hs-portal-id: Hubspot portal id
  * - data-redirect-url: (optional) - URL to redirect to after form submission
  * - data-resource-url: (optional) - URL to resource [PDF] to open in new tab after success
+ * - data-resource-filename: (optional) - filename for the resource (e.g. whitepaper.pdf)
  * - data-redirect-timeout: (optional) - time in milliseconds to wait before redirecting
  * The form success/error blocks needs the following HTML attributes:
  * - data-form-success: this is the block that will be displayed after form submission

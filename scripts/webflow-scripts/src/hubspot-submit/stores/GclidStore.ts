@@ -1,4 +1,4 @@
-import { getGclid } from '../features/gclid'
+import { getGclid } from '../util/gclid'
 
 export const GclidStore = (() => {
   let gclid: string | null = null
