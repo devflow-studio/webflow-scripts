@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint ./src/**/*.ts",
-    "test": "jest --verbose",
+    "test": "jest --verbose --silent",
     "types:check": "tsc --noEmit"
   },
   "keywords": [
