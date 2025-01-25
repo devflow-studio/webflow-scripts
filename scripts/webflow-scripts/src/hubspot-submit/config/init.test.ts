@@ -1,4 +1,10 @@
-import { greet, useClientIp, useGclid, useUtmParameters } from './init'
+import {
+  getHubspotForms,
+  greet,
+  useClientIp,
+  useGclid,
+  useUtmParameters,
+} from './init'
 import { ScriptStore } from '../stores/ScriptStore'
 
 jest.mock('../stores/ScriptStore', () => ({
@@ -106,6 +112,17 @@ describe('Config Init', () => {
       mockScript.setAttribute('data-use-gclid', 'true')
       ;(ScriptStore.getScript as jest.Mock).mockReturnValue(mockScript)
       expect(useGclid()).toBe(true)
+    })
+  })
+
+  describe('func getHubspotForms', () => {
+    it('returns a NodeList of HTMLFormElement', () => {
+      const form = document.createElement('form')
+      form.setAttribute('data-hs-form-id', '123')
+      document.body.appendChild(form)
+      const forms = getHubspotForms()
+      expect(forms).toHaveLength(1)
+      expect(forms[0]).toBeInstanceOf(HTMLFormElement)
     })
   })
 })
