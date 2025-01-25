@@ -15,6 +15,12 @@ export const greet = () => {
 export const useClientIp =
   (script?.getAttribute('data-use-ip') || 'false').toLowerCase() === 'true'
 
+export const useUtmParameters: boolean =
+  (script?.getAttribute('data-use-utm') || 'false').toLowerCase() === 'true'
+
+export const useGclid: boolean =
+  (script?.getAttribute('data-use-gclid') || 'false').toLowerCase() === 'true'
+
 export const getHubspotForms = (): NodeListOf<HTMLFormElement> => {
   return document.querySelectorAll('[data-hs-form-id]')
 }

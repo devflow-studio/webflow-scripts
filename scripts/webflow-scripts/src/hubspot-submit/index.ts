@@ -14,7 +14,9 @@ import {
  * Written by: David Potter (Devflow Studio)
  * The embedded script element should have the following attributes:
  * - data-webflow-hubspot-submit: (required) - flag to get the script tag
- * - data-use-ip: (optional) - flag to use the client IP address
+ * - data-use-ip: (optional) - flag to use the client IP address for context (default: false)
+ * - data-use-utm: (optional) - flag to use UTM parameters as field (default: false)
+ * - data-use-gclid: (optional) - flag to use 'gclid' as field (default: false)
  * Each form element needs the following HTML attributes:
  * - data-hs-form-id: Hubspot form id
  * - data-hs-portal-id: Hubspot portal id

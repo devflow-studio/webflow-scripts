@@ -1,5 +1,6 @@
 import { UTMStore } from '../stores/UTMStore'
 import { GclidStore } from '../stores/GclidStore'
+import { useGclid, useUtmParameters } from '../config/init'
 
 export interface HubspotField {
   name: string
@@ -15,7 +16,9 @@ const getHubspotFieldElements = (
     | HTMLSelectElement
   )[] = Array.from(form.querySelectorAll('input, textarea, select'))
 
-  return fieldElements.filter(fe => fe.type !== 'submit')
+  return fieldElements
+    .filter(fe => fe.type !== 'submit') // remove submit button
+    .filter(fe => fe.name !== 'cf_turnstile_response') // remove Cloudflare turnstile response
 }
 
 const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
@@ -45,7 +48,7 @@ const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
 const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
   const utmParameters = UTMStore.getUtmParameters()
 
-  if (!utmParameters) {
+  if (!utmParameters || !useUtmParameters) {
     return fields
   }
 
@@ -59,7 +62,7 @@ const appendUtmParameters = (fields: HubspotField[]): HubspotField[] => {
 const appendGclid = (fields: HubspotField[]): HubspotField[] => {
   const gclid = GclidStore.getGclid()
 
-  if (!gclid) {
+  if (!gclid || !useGclid) {
     return fields
   }
 
