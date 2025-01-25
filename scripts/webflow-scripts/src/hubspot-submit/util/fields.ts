@@ -18,7 +18,7 @@ const getHubspotFieldElements = (
 
   return fieldElements
     .filter(fe => fe.type !== 'submit') // remove submit button
-    .filter(fe => fe.name !== 'cf_turnstile_response') // remove Cloudflare turnstile response
+    .filter(fe => fe.name !== 'cf-turnstile-response') // remove Cloudflare turnstile response
 }
 
 const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
