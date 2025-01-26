@@ -98,6 +98,8 @@ _Optional Attributes_
 
 = Redirects =
 
+Applied to **form element**.
+
 - `data-redirect-url` - The URL to redirect to after successful form submission.
   (e.g. /thank-you)
 - `data-redirect-timeout` - The number of milliseconds to wait before
@@ -105,6 +107,8 @@ _Optional Attributes_
   provided without a timeout.
 
 = Resource Downloads =
+
+Applied to **form element**.
 
 - `data-resource-url` - The URL to download a resource after successful form
   submission. These can be PDFs uploaded to the Webflow Assets library, for
