@@ -9,26 +9,6 @@ import {
   getFormConfig,
   prepareWebflowForm,
 } from './util/form'
-
-/**
- * Hubspot Form Controller
- * Written by: David Potter (Devflow Studio)
- * The embedded script element should have the following attributes:
- * - data-webflow-hubspot-submit: (required) - flag to get the script tag
- * - data-use-ip: (optional) - flag to use the client IP address for context (default: false)
- * - data-use-utm: (optional) - flag to use UTM parameters as field (default: false)
- * - data-use-gclid: (optional) - flag to use 'gclid' as field (default: false)
- * Each form element needs the following HTML attributes:
- * - data-hs-form-id: Hubspot form id
- * - data-hs-portal-id: Hubspot portal id
- * - data-redirect-url: (optional) - URL to redirect to after form submission
- * - data-resource-url: (optional) - URL to resource [PDF] to open in new tab after success
- * - data-resource-filename: (optional) - filename for the resource (e.g. whitepaper.pdf)
- * - data-redirect-timeout: (optional) - time in milliseconds to wait before redirecting
- * The form success/error blocks needs the following HTML attributes:
- * - data-form-success: this is the block that will be displayed after form submission
- * - data-form-error: this is the block that will be displayed after form submission (if there is an error)
- */
 ;(async () => {
   greet()
 
