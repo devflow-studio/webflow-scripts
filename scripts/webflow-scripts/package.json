@@ -1,6 +1,6 @@
 {
   "name": "webflow-scripts",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Various scripts to be used to extend functionality of websites built with Webflow",
   "files": [
     "dist"
