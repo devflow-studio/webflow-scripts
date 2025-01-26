@@ -30,9 +30,12 @@ export default [
       dir: 'dist',
       entryFileNames: '[name]/index.js',
       name: 'HubspotSubmit',
+      banner:
+        '/*!\n* Hubspot Submit v1.1.0\n* Copyright (c) 2025 Devflow Studio, LLC\n* Licensed under MIT\n*/',
       format: 'iife',
       sourcemap: true,
       preserveModules: false,
+      compact: true,
     },
     plugins: [
       typescript({
