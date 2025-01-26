@@ -44,7 +44,11 @@ planned to be supported in future versions with backward compatibility.
 ></script>
 ```
 
+<VERSION>=1.1.0 (or latest version)
+
 **Script Tag**
+
+PLACE IN GLOBAL FOOTER | OR | PLACE IN PAGE FOOTER (if per page usage)
 
 The script embed should have the following attribute to work as expected:
 `data-webflow-hubspot-submit`.
