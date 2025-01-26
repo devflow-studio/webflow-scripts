@@ -56,9 +56,9 @@ const getResourceFilename = (form: HTMLFormElement): string | undefined => {
 }
 
 const getRedirectTimeout = (form: HTMLFormElement): number | undefined => {
-  return form.getAttribute('data-redirect-timeout')
-    ? parseInt(form.getAttribute('data-redirect-timeout') || '0', 10)
-    : undefined
+  const timeout = form.getAttribute('data-redirect-timeout')
+  const parsedTimeout = timeout ? parseInt(timeout, 10) : NaN
+  return isNaN(parsedTimeout) ? undefined : parsedTimeout
 }
 
 const getFormSuccessBlock = (
@@ -107,7 +107,7 @@ export const getFormConfig = (form: HTMLFormElement): FormConfig => {
   }
 }
 
-const sendFormData = async (
+export const sendFormData = async (
   payload: HubspotPayload,
   formConfig: FormConfig,
 ): Promise<boolean> => {
@@ -126,10 +126,6 @@ export const addFormSubmitListener = (
 ): void => {
   form.addEventListener('submit', async (event: Event) => {
     event.preventDefault()
-
-    console.log(
-      `Form Submit!\nForm ID: ${formConfig.formId}\nPortal ID: ${formConfig.portalId}`,
-    )
 
     const success: boolean = await sendFormData(
       constructHubspotPayload(form),
