@@ -25,7 +25,7 @@ const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
   const fieldElements = getHubspotFieldElements(form)
 
   return fieldElements.map(fieldElement => {
-    const name: string | undefined = fieldElement.name
+    let name: string | undefined = fieldElement.name
     let value
 
     if (
@@ -39,6 +39,12 @@ const getFieldsFromInputs = (form: HTMLFormElement): HubspotField[] => {
 
     if (!name) {
       console.warn('Field is missing a name - field:', fieldElement)
+    }
+
+    const dataName: string | null = fieldElement.getAttribute('data-name')
+    if (name && dataName && name !== dataName) {
+      fieldElement.name = dataName
+      name = dataName
     }
 
     return { name, value }
