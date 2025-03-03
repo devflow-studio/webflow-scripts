@@ -163,9 +163,6 @@ describe('Fields Util', () => {
     })
 
     it('updates "name" attribute to match "data-name" when they differ', () => {
-      ;(useUtmParameters as jest.Mock).mockReturnValue(false)
-      ;(useGclid as jest.Mock).mockReturnValue(false)
-
       const fields = getHubspotFields(form)
 
       expect(fields).toContainEqual({
@@ -175,9 +172,6 @@ describe('Fields Util', () => {
     })
 
     it('does not modify "name" if it already matches "data-name"', () => {
-      ;(useUtmParameters as jest.Mock).mockReturnValue(false)
-      ;(useGclid as jest.Mock).mockReturnValue(false)
-
       const fields = getHubspotFields(form)
 
       expect(fields).toContainEqual({
@@ -187,9 +181,6 @@ describe('Fields Util', () => {
     })
 
     it('does not modify "name" if it is missing', () => {
-      ;(useUtmParameters as jest.Mock).mockReturnValue(false)
-      ;(useGclid as jest.Mock).mockReturnValue(false)
-
       const emailField: HTMLInputElement | null = form.querySelector(
         'input[name="email"]',
       )
@@ -204,9 +195,6 @@ describe('Fields Util', () => {
     })
 
     it('does not modify "name" if "data-name" is missing', () => {
-      ;(useUtmParameters as jest.Mock).mockReturnValue(false)
-      ;(useGclid as jest.Mock).mockReturnValue(false)
-
       const questionField: HTMLInputElement | null = form.querySelector(
         'input[name="how_can_we_help"]',
       )
