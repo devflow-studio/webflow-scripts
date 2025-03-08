@@ -34,30 +34,35 @@ describe('Fields Util', () => {
     const firstname = document.createElement('input')
     firstname.name = 'firstname'
     firstname.value = 'Test'
+    firstname.setAttribute('data-name', firstname.name)
     form.appendChild(firstname)
 
     // lastname
     const lastname = document.createElement('input')
     lastname.name = 'lastname'
     lastname.value = 'User'
+    lastname.setAttribute('data-name', lastname.name)
     form.appendChild(lastname)
 
     // email
     const email = document.createElement('input')
     email.name = 'email'
     email.value = 'test@test.com'
+    email.setAttribute('data-name', email.name)
     form.appendChild(email)
 
     // phone
     const phone = document.createElement('input')
     phone.name = 'phone'
     phone.value = '1234567890'
+    phone.setAttribute('data-name', phone.name)
     form.appendChild(phone)
 
     // message
     const message = document.createElement('textarea')
     message.name = 'message'
     message.value = 'This is a test message'
+    message.setAttribute('data-name', message.name)
     form.appendChild(message)
 
     // agreement
@@ -65,7 +70,15 @@ describe('Fields Util', () => {
     agreement.type = 'checkbox'
     agreement.name = 'agreement'
     agreement.checked = true
+    agreement.setAttribute('data-name', agreement.name)
     form.appendChild(agreement)
+
+    // question
+    const question = document.createElement('input')
+    question.name = 'how_can_we_help'
+    question.value = 'Sales Question'
+    question.setAttribute('data-name', 'how_can_we_help_')
+    form.appendChild(question)
 
     // submit
     const submit = document.createElement('input')
@@ -100,6 +113,7 @@ describe('Fields Util', () => {
         { name: 'phone', value: '1234567890' },
         { name: 'message', value: 'This is a test message' },
         { name: 'agreement', value: 'true' },
+        { name: 'how_can_we_help_', value: 'Sales Question' },
       ])
 
       expect(
@@ -121,6 +135,7 @@ describe('Fields Util', () => {
         { name: 'phone', value: '1234567890' },
         { name: 'message', value: 'This is a test message' },
         { name: 'agreement', value: 'true' },
+        { name: 'how_can_we_help_', value: 'Sales Question' },
         { name: 'utm_source', value: 'test-source' },
         { name: 'utm_medium', value: 'test-medium' },
         { name: 'utm_campaign', value: 'test-campaign' },
@@ -142,8 +157,55 @@ describe('Fields Util', () => {
         { name: 'phone', value: '1234567890' },
         { name: 'message', value: 'This is a test message' },
         { name: 'agreement', value: 'true' },
+        { name: 'how_can_we_help_', value: 'Sales Question' },
         { name: 'gclid', value: '123' },
       ])
+    })
+
+    it('updates "name" attribute to match "data-name" when they differ', () => {
+      const fields = getHubspotFields(form)
+
+      expect(fields).toContainEqual({
+        name: 'how_can_we_help_',
+        value: 'Sales Question',
+      })
+    })
+
+    it('does not modify "name" if it already matches "data-name"', () => {
+      const fields = getHubspotFields(form)
+
+      expect(fields).toContainEqual({
+        name: 'firstname',
+        value: 'Test',
+      })
+    })
+
+    it('does not modify "name" if it is missing', () => {
+      const emailField: HTMLInputElement | null = form.querySelector(
+        'input[name="email"]',
+      )
+      emailField?.removeAttribute('name')
+
+      const fields = getHubspotFields(form)
+
+      expect(fields).toContainEqual({
+        name: '',
+        value: 'test@test.com',
+      })
+    })
+
+    it('does not modify "name" if "data-name" is missing', () => {
+      const questionField: HTMLInputElement | null = form.querySelector(
+        'input[name="how_can_we_help"]',
+      )
+      questionField?.removeAttribute('data-name')
+
+      const fields = getHubspotFields(form)
+
+      expect(fields).toContainEqual({
+        name: 'how_can_we_help',
+        value: 'Sales Question',
+      })
     })
 
     it('logs a warning to the console if a field is missing a name', () => {
@@ -165,6 +227,7 @@ describe('Fields Util', () => {
         { name: 'phone', value: '1234567890' },
         { name: 'message', value: 'This is a test message' },
         { name: 'agreement', value: 'true' },
+        { name: 'how_can_we_help_', value: 'Sales Question' },
       ])
 
       expect(consoleSpy).toHaveBeenCalledWith(
@@ -186,6 +249,7 @@ describe('Fields Util', () => {
         { name: 'phone', value: '1234567890' },
         { name: 'message', value: 'This is a test message' },
         { name: 'agreement', value: 'true' },
+        { name: 'how_can_we_help_', value: 'Sales Question' },
         { name: 'utm_source', value: 'test-source' },
         { name: 'utm_medium', value: 'test-medium' },
         { name: 'utm_campaign', value: 'test-campaign' },
